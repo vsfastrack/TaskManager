@@ -1,9 +1,7 @@
 package main
 
-import(
-	"./common/"
-)
+import "fmt"
 
-func main(){
-	common.
+func main() {
+	fmt.Println("Hello go is fun")
 }
