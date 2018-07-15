@@ -16,33 +16,19 @@ func Register(w http.ResponseWriter, r http.Request) {
 	err := json.NewDecoder(r.Body).decode(&dataResource)
 
 	if err != nil {
-		common.DisplayAppError(
-			w,
-			err,
-			"Invalid user data",
-			500,
-		)
+		common.DisplayAppError(w,err,"Invalid user data",500,)
 		return
 	}
 
 	user := &dataResource.Data
-	context := NewContext()
-
-	defer context.Close()
-
-	c := context.DbCollection("users")
+	c := 	GetCollection("users")
 	repo := &data.UserRepository{c}
 
 	repo.CreateUser(user)
 
 	user.HashPassword = nil
 	if j, err := json.Marshal(UserResource{Data: *user}); err != nil {
-		common.DisplayAppError(
-			w,
-			err,
-			"An unexpected error has occurred",
-			500,
-		)
+		common.DisplayAppError(	w,err,"An unexpected error has occurred",500,)
 		return
 	}
 
@@ -79,22 +65,12 @@ func Login(w http.ResponseWriter, r http.Request) {
 	repo := &data.UserRepository{c}
 
 	if user, err := repo.Login(loginUser); err != nil {
-		common.DisplayAppError(
-			w,
-			err,
-			"Invalid login credentials",
-			401,
-		)
+		common.DisplayAppError(	w,err,"Invalid login credentials",401,)
 		return
 	}
 	token, err = common.GenerateJWT(user.Email, "member")
 	if err != nil {
-		common.DisplayAppError(
-			w,
-			err,
-			"Eror while generating the access token",
-			500,
-		)
+		common.DisplayAppError(	w,err,"Eror while generating the access token",	500,)
 		return
 	}
 
@@ -103,7 +79,7 @@ func Login(w http.ResponseWriter, r http.Request) {
 	authUser := AuthUserModel{
 		User: user,
 		Token: token,
-	}
+	  }
 	j, err := json.Marshal(AuthUserResource{Data: authUser})
 	if err != nil {
 		common.DisplayAppError(

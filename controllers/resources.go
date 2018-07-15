@@ -25,11 +25,11 @@ type (
 		User  models.User `json:"user"`
 		Token string      `json:"token"`
 	}
-
+	//Taskresource for task Resource
 	TaskResource struct {
 		Data models.Task `json:"data"`
 	}
-
+	//TaskResources for tasks resource
 	TasksResource struct {
 		Data []models.Task `json:"data"`
 	}
