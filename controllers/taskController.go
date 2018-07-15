@@ -12,16 +12,21 @@ import (
 func CreateTask(w http.ResponseWriter, r http.Request) {
 	var dataResource TaskResource
 
-	err := json.Decoder(r.Body).decode(&dataResource)
+	err := json.NewDecoder(r.Body).Decode(&dataResource)
 
 	if err != nil {
 		common.DisplayAppError(w, err, "Invalid Task Data", 500)
 		return
 	}
 
-	task := &dataResource.Data
-	c := GetCollection("tasks")
+	context := NewContext()
+	defer context.Close()
+	c := context.DbCollection("tasks")
 
 	repo := &data.TaskRepository{c}
+
+	task := &dataResource.Data
+
+	repo.CreateTask(task)
 
 }
