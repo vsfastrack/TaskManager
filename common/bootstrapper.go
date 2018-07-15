@@ -5,7 +5,7 @@ func StartUp() {
 
 	initConfig()
 
-	intiKeys()
+	initKeys()
 
 	createDbSession()
 

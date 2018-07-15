@@ -1,5 +1,7 @@
 package controllers
 
+import "github.com/vsfastrack/TaskManager/models"
+
 type (
 	//UserResource resource for Post - /user/register
 	UserResource struct {
@@ -22,5 +24,13 @@ type (
 	AuthUserModel struct {
 		User  models.User `json:"user"`
 		Token string      `json:"token"`
+	}
+
+	TaskResource struct {
+		Data models.Task `json:"data"`
+	}
+
+	TasksResource struct {
+		Data []models.Task `json:"data"`
 	}
 )

@@ -1,7 +1,30 @@
 package main
 
-import "fmt"
+import (
+	"log"
+	"net/http"
+
+	"github.com/codegangsta/negroni"
+	"github.com/vsfastrack/TaskManager/common"
+	"github.com/vsfastrack/TaskManager/routers"
+)
 
 func main() {
-	fmt.Println("Hello go is fun")
+	//Calls startup logic
+	common.StartUp()
+
+	//Get the mux router object
+	router := routers.InitRoutes()
+
+	// Create a negroni instance
+	n := negroni.Classic()
+	n.UseHandler(router)
+
+	server := &http.Server{
+		Addr:    common.AppConfig.Server,
+		Handler: n,
+	}
+	log.Println("Listening...")
+	server.ListenAndServe()
+
 }
