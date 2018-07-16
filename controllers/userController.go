@@ -23,6 +23,8 @@ func Register(w http.ResponseWriter, r http.Request) {
 	context := NewContext()
 	defer context.Close()
 	c := context.DbCollection("users")
+
+	//Repo for user
 	repo := &data.UserRepository{c}
 
 	user := &dataResource.Data
