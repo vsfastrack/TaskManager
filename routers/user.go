@@ -2,6 +2,7 @@ package routers
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/vsfastrack/TaskManager/controllers"
 )
 
 //SetUserRoutes handlers for user

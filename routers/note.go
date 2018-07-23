@@ -3,6 +3,8 @@ package routers
 import (
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
+	"github.com/vsfastrack/TaskManager/common"
+	"github.com/vsfastrack/TaskManager/controllers"
 )
 
 //SetNoteRoutes for routes

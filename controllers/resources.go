@@ -33,4 +33,19 @@ type (
 	TasksResource struct {
 		Data []models.Task `json:"data"`
 	}
+
+	//NoteResource resource
+	NoteResource struct {
+		Data NoteModel `json:"data"`
+	}
+
+	//NotesResource
+	NotesResource struct {
+		Data []models.TaskNote `json:"data"`
+	}
+	//NoteModel for a TaskNote
+	NoteModel struct {
+		TaskId      string `json:"taskid"`
+		Description string `json:"description"`
+	}
 )
