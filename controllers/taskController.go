@@ -14,6 +14,7 @@ import (
 
 //CreateTask handler
 func CreateTask(w http.ResponseWriter, r *http.Request) {
+
 	var dataResource TaskResource
 
 	err := json.NewDecoder(r.Body).Decode(&dataResource)
