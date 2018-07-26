@@ -176,3 +176,25 @@ func GetTasksByUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(j)
 }
+
+//DeleteTask handler
+func DeleteTask(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	context := NewContext()
+	defer context.Close()
+	c := context.DbCollection("tasks")
+	repo := &data.TaskRepository{c}
+	// Delete an existing Task document
+	err := repo.Delete(id)
+	if err != nil {
+		common.DisplayAppError(
+			w,
+			err,
+			"An unexpected error has occurred",
+			500,
+		)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
+}
